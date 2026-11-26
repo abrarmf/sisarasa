@@ -445,8 +445,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 /* ===== Konfigurasi formulir lead (Google Form) ===== */
 const LEAD = {
   action: "https://docs.google.com/forms/d/e/1FAIpQLSeG-lYqHpJa8uQSp2kMJDIUn4BgFkmw57bJUzNIytj3OvJ10w/formResponse",
-  fields: { nama: "entry.1420202387", wa: "entry.1357009124", peran: "entry.1918277721", area: "entry.1160364265" }
+  fields: { nama: "entry.1420202387", wa: "entry.1357009124", peran: "entry.1918277721", area: "entry.1160364265", sumber: "entry.454458191" }
 };
+
+/* ===== Atribusi kanal: simpan parameter UTM dari tautan kampanye ===== */
+const SRC = (() => {
+  const q = new URLSearchParams(location.search);
+  const keys = ["utm_source","utm_medium","utm_campaign","utm_content"];
+  let v = keys.map(k => q.get(k) || "").filter(Boolean).join(" / ");
+  try {
+    if (v) sessionStorage.setItem("sr_src", v); else v = sessionStorage.getItem("sr_src") || "";
+  } catch (e) {}
+  if (!v) { try { v = document.referrer ? "referral / " + new URL(document.referrer).hostname : "langsung"; } catch (e) { v = "langsung"; } }
+  return v.slice(0, 200);
+})();
 
 function track(name, params){ if (typeof gtag === "function") gtag("event", name, params || {}); }
 
@@ -475,9 +487,10 @@ form.addEventListener("submit", async (e) => {
   body.append(LEAD.fields.wa, wa);
   body.append(LEAD.fields.peran, d.peran);
   body.append(LEAD.fields.area, d.area);
+  body.append(LEAD.fields.sumber, SRC);
   try {
     await fetch(LEAD.action, { method: "POST", mode: "no-cors", body });
-    track("generate_lead", { form_id: "beta_signup", peran: d.peran, area: d.area });
+    track("generate_lead", { form_id: "beta_signup", peran: d.peran, area: d.area, lead_source: SRC });
     document.getElementById("form-box").innerHTML =
       '<div class="done" role="status"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#E3F2E9"/><circle cx="32" cy="32" r="22" fill="#1F8A5B"/><path d="m22 32 7 7 13-14" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
       '<h3>Kamu sudah terdaftar.</h3><p>Kami kabari lewat WhatsApp begitu beta SisaRasa dibuka di ' + d.area.replace(/[<>&]/g, "") + '.</p></div>';
