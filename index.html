@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SisaRasa — Makanan surplus resto, setengah harga, dekat kampus</title>
+<meta name="description" content="SisaRasa mempertemukan mahasiswa di Tembalang dengan makanan surplus dari resto dan kafe sekitar kampus. Diskon 30–70%, info kesegaran jelas, ambil sendiri. Daftar beta gratis.">
+<meta property="og:title" content="SisaRasa — Makan enak sebelum resto tutup, setengah harga">
+<meta property="og:description" content="Marketplace makanan surplus untuk mahasiswa di sekitar Undip Tembalang. Daftar beta tertutup gratis.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://abrarmf.github.io/sisarasa/img/layar-beranda.webp">
+<link rel="canonical" href="https://abrarmf.github.io/sisarasa/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231F8A5B'/%3E%3Cpath d='M9 22c0-8 5-13 14-14 0 9-5 14-13 14z' fill='%23F6C343'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ANALYTICS:START -->
+<!-- ANALYTICS:END -->
+
+<style>
+:root{
+  --leaf:#1F8A5B; --leaf-deep:#0E4A31; --leaf-soft:#E3F2E9;
+  --rice:#F6C343; --tag:#F2994A; --tag-soft:#FFF0E0;
+  --paper:#F3F6F1; --card:#FFFFFF; --ink:#17201B; --mute:#55625B; --line:#DCE4DE;
+  --r-s:10px; --r-m:16px; --r-l:28px;
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 "Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--tag);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+h2{font-size:clamp(28px,4vw,42px);font-weight:800}
+h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.lead{color:var(--mute);font-size:18px;max-width:58ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s,transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn-main{background:var(--leaf);color:#fff}
+.btn-main:hover{background:var(--leaf-deep)}
+.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(243,246,241,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px;text-decoration:none;letter-spacing:-.02em}
+.logo svg{width:32px;height:32px}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-weight:600;font-size:15px}
+.nav ul a{text-decoration:none;color:var(--mute)}
+.nav ul a:hover{color:var(--ink)}
+.nav .btn{min-height:42px;padding:0 18px;font-size:15px}
+
+/* hero */
+.hero{padding:64px 0 40px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.where{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:var(--leaf-deep);background:var(--leaf-soft);padding:6px 14px;border-radius:999px;margin-bottom:22px}
+.where i{width:8px;height:8px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 4px rgba(31,138,91,.2)}
+.hero h1{font-size:clamp(40px,6.2vw,74px);font-weight:800;letter-spacing:-.035em;line-height:1.02;max-width:12ch}
+.price{display:flex;align-items:flex-end;gap:18px;margin:28px 0 26px;flex-wrap:wrap}
+.price .old{position:relative;font-size:clamp(30px,4vw,44px);font-weight:700;color:var(--mute)}
+.price .old::after{content:"";position:absolute;left:-4px;right:-4px;top:52%;height:5px;border-radius:4px;background:var(--tag);transform-origin:left;transform:scaleX(1)}
+.price .new{font-size:clamp(52px,8vw,96px);font-weight:800;color:var(--leaf);letter-spacing:-.04em;line-height:.9}
+.price .note{flex-basis:100%;font-size:15px;color:var(--mute)}
+.hero .lead{margin-bottom:30px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){
+  .price .old::after{animation:strike .7s .5s cubic-bezier(.6,0,.2,1) both}
+  .price .new{animation:pop .5s 1.1s cubic-bezier(.2,.9,.3,1.3) both}
+  @keyframes strike{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+}
+.phone-zone{position:relative;justify-self:center}
+.phone{width:300px;border-radius:44px;padding:12px;background:var(--ink);box-shadow:0 30px 60px -20px rgba(14,74,49,.45);transform:rotate(3deg)}
+.phone img{border-radius:32px;width:100%}
+.sticker{position:absolute;background:var(--rice);color:var(--ink);font-weight:800;border-radius:var(--r-m);padding:12px 16px;line-height:1.2;box-shadow:0 10px 20px -10px rgba(0,0,0,.3)}
+.sticker small{display:block;font-weight:600;font-size:13px}
+.st-1{left:-56px;top:90px;transform:rotate(-6deg)}
+.st-2{right:-40px;bottom:110px;background:var(--card);transform:rotate(5deg);border:2px solid var(--ink)}
+
+/* proof */
+.proof{padding:56px 0}
+.proof-box{background:var(--card);border-radius:var(--r-l);padding:40px;display:grid;grid-template-columns:.9fr 1.6fr;gap:40px;align-items:center;border:1px solid var(--line)}
+.proof-box h2{font-size:clamp(24px,3vw,32px)}
+.proof-box .src{margin-top:12px;font-size:14px;color:var(--mute)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 32px;margin:0;padding:0;list-style:none}
+.facts b{display:block;font-size:40px;font-weight:800;letter-spacing:-.03em;color:var(--leaf);line-height:1.05}
+.facts span{font-size:15px;color:var(--mute)}
+
+/* benefits */
+.section{padding:72px 0}
+.sec-head{max-width:640px;margin-bottom:40px}
+.sec-head .lead{margin-top:14px}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.benefit{padding:28px 28px 8px 0}
+.benefit+.benefit{padding-left:28px;border-left:1px solid var(--line)}
+.benefit svg{width:40px;height:40px;margin-bottom:18px}
+.benefit h3{margin-bottom:10px}
+.benefit p{color:var(--mute);font-size:16px}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:s}
+.step{counter-increment:s}
+.step .shot{background:var(--leaf-soft);border-radius:var(--r-l);padding:28px 28px 0;height:300px;overflow:hidden;margin-bottom:20px;display:flex;justify-content:center}
+.step .shot img{width:210px;border-radius:24px 24px 0 0;box-shadow:0 12px 30px -10px rgba(14,74,49,.35)}
+.step:nth-child(2) .shot{background:var(--tag-soft)}
+.step:nth-child(3) .shot{background:#FDF3D2}
+.step h3{display:flex;gap:12px;align-items:baseline}
+.step h3::before{content:counter(s);flex:none;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font-size:15px;display:grid;place-items:center;transform:translateY(-2px)}
+.step p{color:var(--mute);font-size:16px;margin-top:8px;padding-left:44px}
+.proto-note{margin-top:22px;font-size:14px;color:var(--mute)}
+
+/* voices */
+.voices{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px}
+.voice{margin:0;background:var(--card);border-radius:var(--r-m);padding:28px;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.voice:first-child{background:var(--leaf);color:#fff;border:none}
+.voice blockquote{margin:0;font-size:20px;font-weight:600;line-height:1.4;letter-spacing:-.01em}
+.voice:first-child blockquote{font-size:26px}
+.voice figcaption{font-size:14px;color:var(--mute)}
+.voice:first-child figcaption{color:#CFEBDB}
+
+/* partner */
+.partner{background:var(--leaf-deep);color:#fff;border-radius:var(--r-l);padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.partner .lead{color:#CFEBDB}
+.partner ul{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.partner li{display:grid;grid-template-columns:28px 1fr;gap:14px;font-size:16px;color:#E6F3EB}
+.partner li b{display:block;color:#fff;font-size:17px}
+.partner li svg{width:28px;height:28px}
+.partner .btn-main{background:var(--rice);color:var(--ink);margin-top:28px}
+.partner .btn-main:hover{background:#fff}
+
+/* faq */
+.faq{max-width:760px}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:24px;line-height:1;color:var(--leaf);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--mute);margin-top:10px;font-size:16px;max-width:65ch}
+
+/* signup */
+.signup{padding:80px 0 96px}
+.signup .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.form{background:var(--card);border-radius:var(--r-l);padding:36px;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--rice)}
+.field{margin-bottom:18px}
+.field label,.field legend{display:block;font-weight:700;font-size:15px;margin-bottom:8px;padding:0}
+.field input[type=text],.field input[type=tel],.field select{width:100%;height:50px;border:1.5px solid var(--line);border-radius:var(--r-s);padding:0 14px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus{border-color:var(--leaf);outline:none;box-shadow:0 0 0 3px var(--leaf-soft)}
+.field .hint{font-size:13px;color:var(--mute);margin-top:6px}
+fieldset{border:0;margin:0 0 18px;padding:0}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice label{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:var(--r-s);padding:12px 14px;font-weight:600;cursor:pointer;font-size:15px}
+.choice input{accent-color:var(--leaf);width:18px;height:18px}
+.choice label:has(input:checked){border-color:var(--leaf);background:var(--leaf-soft)}
+.consent{display:flex;gap:10px;font-size:14px;color:var(--mute);margin:4px 0 22px;align-items:flex-start}
+.consent input{accent-color:var(--leaf);width:18px;height:18px;margin-top:2px;flex:none}
+.form .btn{width:100%}
+.msg{margin-top:14px;font-size:15px;font-weight:600;min-height:1.6em}
+.msg.err{color:#B3261E}
+.done{text-align:center;padding:24px 0}
+.done svg{width:64px;height:64px;margin:0 auto 16px}
+.done h3{font-size:24px;margin-bottom:8px}
+.done p{color:var(--mute)}
+.signup .side .lead{margin:14px 0 28px}
+.perks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.perks li{display:flex;gap:12px;align-items:flex-start;font-weight:600}
+.perks li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:var(--leaf) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12 4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat;margin-top:2px}
+
+footer{border-top:1px solid var(--line);padding:32px 0;font-size:14px;color:var(--mute)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+/* responsive */
+@media (max-width:900px){
+  .nav ul{display:none}
+  .hero{padding-top:40px}
+  .hero .wrap,.proof-box,.partner,.signup .wrap{grid-template-columns:1fr}
+  .phone-zone{margin-top:12px}
+  .st-1{left:-24px}.st-2{right:-16px}
+  .benefits,.steps,.voices{grid-template-columns:1fr}
+  .benefit,.benefit+.benefit{padding:24px 0;border-left:none;border-bottom:1px solid var(--line)}
+  .partner{padding:36px 24px}
+  .proof-box{padding:28px}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .facts b{font-size:32px}
+  .phone{width:250px}
+  .sticker{font-size:14px;padding:10px 12px}
+  .choice{grid-template-columns:1fr}
+  .form{padding:24px;box-shadow:6px 6px 0 var(--rice)}
+  .nav .btn{padding:0 14px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="SisaRasa, ke atas halaman">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#1F8A5B"/><path d="M9 23c0-8 5-13 14-14 0 9-5 14-13 14z" fill="#F6C343"/><path d="M9 23 17 15" stroke="#0E4A31" stroke-width="2" stroke-linecap="round"/></svg>
+      SisaRasa
+    </a>
+    <nav aria-label="Navigasi utama">
+      <ul>
+        <li><a href="#cara-kerja">Cara kerja</a></li>
+        <li><a href="#mitra">Untuk mitra</a></li>
+        <li><a href="#tanya">Tanya jawab</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-main" href="#daftar" data-cta="nav_daftar">Daftar beta</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="where"><i aria-hidden="true"></i>Beta tertutup segera dibuka di Tembalang, Semarang</p>
+      <h1>Makan enak sebelum resto tutup.</h1>
+      <p class="price" aria-label="Contoh harga: dari Rp20.000 menjadi Rp10.000">
+        <span class="old" aria-hidden="true">Rp20.000</span>
+        <span class="new" aria-hidden="true">Rp10.000</span>
+        <span class="note">Contoh: seporsi nasi kuning komplit yang belum terjual sore ini.</span>
+      </p>
+      <p class="lead">SisaRasa mempertemukan mahasiswa dengan makanan surplus dari resto, kafe, dan bakery di sekitar kampus. Pesan lewat web, bayar QRIS, lalu ambil sendiri di jam yang sudah ditentukan.</p>
+      <div class="cta-row">
+        <a class="btn btn-main" href="#daftar" data-cta="hero_daftar">Daftar beta gratis</a>
+        <a class="btn btn-ghost" href="#mitra" data-cta="hero_mitra">Saya pemilik resto</a>
+      </div>
+    </div>
+    <div class="phone-zone">
+      <div class="phone"><img src="img/layar-beranda.webp" width="360" height="800" alt="Tampilan prototipe SisaRasa: katalog makanan surplus hari ini dengan harga diskon, sisa porsi, dan jam ambil"></div>
+      <p class="sticker st-1">Hemat 30–70%<small>dari harga normal</small></p>
+      <p class="sticker st-2">Ambil 19.00–20.00<small>porsi aman setelah bayar</small></p>
+    </div>
+  </div>
+</section>
+
+<section class="proof" aria-labelledby="proof-h">
+  <div class="wrap">
+    <div class="proof-box">
+      <div>
+        <h2 id="proof-h">Kami tanya dulu ke 32 mahasiswa sebelum membangun SisaRasa.</h2>
+        <p class="src">Survei riset pengguna SisaRasa, mahasiswa di Semarang, 2026.</p>
+      </div>
+      <ul class="facts">
+        <li><b>100%</b><span>bersedia bayar di muka agar porsinya pasti tersimpan</span></li>
+        <li><b>81,3</b><span>skor NPS: hampir semua akan merekomendasikan ke teman</span></li>
+        <li><b>4,81/5</b><span>rata-rata seberapa penting isu makanan terbuang bagi mereka</span></li>
+        <li><b>75%</b><span>khawatir soal kesegaran, jadi setiap menu wajib mencantumkan jam produksi</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="manfaat-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="manfaat-h">Hemat buat kamu, untung buat resto, baik buat bumi.</h2>
+      <p class="lead">Makanan yang tersisa di etalase sore hari masih layak dan enak. Daripada dibuang, lebih baik sampai ke kamu dengan harga miring.</p>
+    </div>
+    <div class="benefits">
+      <article class="benefit">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#FFF0E0"/><path d="M12 20.5 20.5 12H28v7.5L19.5 28z" fill="none" stroke="#F2994A" stroke-width="2.4" stroke-linejoin="round"/><circle cx="24" cy="16" r="1.8" fill="#F2994A"/></svg>
+        <h3>Diskon 30–70% setiap hari</h3>
+        <p>Menu surplus dijual jauh di bawah harga normal. Cocok untuk uang bulanan yang mulai menipis di akhir bulan.</p>
+      </article>
+      <article class="benefit">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#E3F2E9"/><path d="M20 10 12 13.5v6c0 5 3.3 8.4 8 10.5 4.7-2.1 8-5.5 8-10.5v-6z" fill="none" stroke="#1F8A5B" stroke-width="2.4" stroke-linejoin="round"/><path d="m16.5 20 2.5 2.5 5-5" fill="none" stroke="#1F8A5B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Kesegaran yang bisa dicek</h3>
+        <p>Setiap menu menampilkan jam produksi, foto yang diambil hari itu, dan badge mitra yang sudah lolos checklist keamanan pangan.</p>
+      </article>
+      <article class="benefit">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#FDF3D2"/><circle cx="20" cy="21" r="8" fill="none" stroke="#C9971B" stroke-width="2.4"/><path d="M20 17v4l2.5 2M17 11h6" fill="none" stroke="#C9971B" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <h3>Porsimu aman, tanpa antre</h3>
+        <p>Bayar di muka lewat QRIS atau e-wallet, terima kode ambil, lalu datang di jam yang tertera. Tidak ada lagi kehabisan saat sudah sampai.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cara-kerja" aria-labelledby="cara-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="cara-h">Tiga langkah, kurang dari dua menit.</h2>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <div class="shot"><img src="img/layar-detail.webp" width="360" height="800" alt="Layar detail menu dengan info kesegaran dan sisa porsi"></div>
+        <h3>Pilih menu surplus</h3>
+        <p>Lihat menu dari resto terdekat, cek jam produksi dan sisa porsinya.</p>
+      </li>
+      <li class="step">
+        <div class="shot"><img src="img/layar-qris.webp" width="288" height="640" alt="Layar pembayaran QRIS dengan hitung mundur 10 menit"></div>
+        <h3>Bayar di muka</h3>
+        <p>Bayar lewat QRIS, e-wallet, atau transfer dalam 10 menit agar porsimu terkunci.</p>
+      </li>
+      <li class="step">
+        <div class="shot"><img src="img/layar-kode.webp" width="288" height="640" alt="Layar kode pengambilan SR-014 setelah pembayaran berhasil"></div>
+        <h3>Tunjukkan kode, ambil</h3>
+        <p>Datang di jam ambil, tunjukkan kode ke kasir, dan makananmu siap dibawa.</p>
+      </li>
+    </ol>
+    <p class="proto-note">Gambar di atas adalah tampilan prototipe SisaRasa. Nama mitra dan harga masih contoh.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="suara-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="suara-h">Yang kami dengar dari mahasiswa.</h2>
+      <p class="lead">Kutipan dari wawancara riset pengguna yang menjadi dasar fitur SisaRasa.</p>
+    </div>
+    <div class="voices">
+      <figure class="voice">
+        <blockquote>“Asal jelas jam ambilnya, saya berani coba beli makanan diskon.”</blockquote>
+        <figcaption>Mahasiswa, responden wawancara riset SisaRasa</figcaption>
+      </figure>
+      <figure class="voice">
+        <blockquote>“Saya mau makan enak, tapi budget bulanan pas-pasan.”</blockquote>
+        <figcaption>Mahasiswa, responden wawancara riset SisaRasa</figcaption>
+      </figure>
+      <figure class="voice">
+        <blockquote>“Sayang banget kalau makanan restoran dibuang begitu saja.”</blockquote>
+        <figcaption>Mahasiswa, responden wawancara riset SisaRasa</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="mitra" aria-labelledby="mitra-h">
+  <div class="wrap">
+    <div class="partner">
+      <div>
+        <h2 id="mitra-h">Punya resto, kafe, atau bakery di sekitar kampus?</h2>
+        <p class="lead" style="margin-top:14px">Ubah produksi yang tidak habis jadi pendapatan tambahan, dan biarkan mahasiswa di sekitar menghabiskannya.</p>
+        <a class="btn btn-main" href="#daftar" data-cta="mitra_daftar" data-role="Pemilik usaha F&amp;B">Daftar sebagai mitra</a>
+      </div>
+      <ul>
+        <li><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#F6C343"/><path d="m8.5 14 3.5 3.5 7.5-7.5" fill="none" stroke="#0E4A31" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Tanpa biaya di awal</b>Komisi 15% hanya dipotong saat makanan terjual.</span></li>
+        <li><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#F6C343"/><path d="m8.5 14 3.5 3.5 7.5-7.5" fill="none" stroke="#0E4A31" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Posting dari HP dalam hitungan menit</b>Isi menu, jumlah porsi, harga, dan jam ambil. Menu langganan bisa diposting ulang.</span></li>
+        <li><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#F6C343"/><path d="m8.5 14 3.5 3.5 7.5-7.5" fill="none" stroke="#0E4A31" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Dibayar di muka, tidak ada no-show</b>Pembeli sudah lunas sebelum datang dan menunjukkan kode di kasir.</span></li>
+        <li><svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#F6C343"/><path d="m8.5 14 3.5 3.5 7.5-7.5" fill="none" stroke="#0E4A31" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Pelanggan baru dari kampus</b>Mahasiswa yang datang mengambil surplus bisa kembali di jam normal.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tanya" aria-labelledby="tanya-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 id="tanya-h">Tanya jawab</h2></div>
+    <div class="faq">
+      <details>
+        <summary>Apakah makanan surplus itu makanan sisa?</summary>
+        <p>Bukan. Surplus adalah makanan yang dimasak hari itu tetapi belum terjual sampai menjelang tutup, bukan sisa dari piring pelanggan. Mitra wajib mencantumkan jam produksi dan lolos checklist keamanan pangan SisaRasa.</p>
+      </details>
+      <details>
+        <summary>Apakah makanannya bisa diantar?</summary>
+        <p>Untuk saat ini belum. SisaRasa memakai sistem ambil sendiri agar harga tetap murah. Kamu tinggal datang di jam ambil yang tertera.</p>
+      </details>
+      <details>
+        <summary>Bayarnya pakai apa?</summary>
+        <p>QRIS, e-wallet (GoPay, OVO, DANA), atau transfer bank. Pembayaran dilakukan di muka, dan pesanan batal otomatis jika belum dibayar dalam 10 menit.</p>
+      </details>
+      <details>
+        <summary>Kapan beta dibuka dan di mana saja?</summary>
+        <p>Beta tertutup dimulai di sekitar kampus Undip Tembalang, Semarang. Pendaftar akan dikabari lewat WhatsApp begitu beta dibuka, dan mendapat akses lebih dulu.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="signup" id="daftar" aria-labelledby="daftar-h">
+  <div class="wrap">
+    <div class="side">
+      <h2 id="daftar-h">Daftar beta tertutup SisaRasa.</h2>
+      <p class="lead">Gratis. Isi sekali, kami kabari lewat WhatsApp begitu beta dibuka di daerahmu.</p>
+      <ul class="perks">
+        <li>Akses lebih dulu sebelum dibuka untuk umum</li>
+        <li>Voucher pesanan pertama untuk pendaftar awal</li>
+        <li>Ikut menentukan resto mana yang bergabung lebih dulu</li>
+      </ul>
+    </div>
+
+    <div class="form" id="form-box">
+      <form id="lead-form" novalidate>
+        <div class="field">
+          <label for="nama">Nama</label>
+          <input id="nama" name="nama" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="wa">Nomor WhatsApp</label>
+          <input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" required>
+          <p class="hint">Hanya untuk mengabari pembukaan beta.</p>
+        </div>
+        <fieldset class="field">
+          <legend>Saya mendaftar sebagai</legend>
+          <div class="choice">
+            <label><input type="radio" name="peran" value="Mahasiswa" checked> Mahasiswa</label>
+            <label><input type="radio" name="peran" value="Pemilik usaha F&amp;B"> Pemilik resto/kafe</label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="area">Kampus atau area</label>
+          <select id="area" name="area" required>
+            <option value="">Pilih area</option>
+            <option>Undip Tembalang</option>
+            <option>Polines</option>
+            <option>Unnes Sekaran</option>
+            <option>Udinus / Semarang Tengah</option>
+            <option>Lainnya</option>
+          </select>
+        </div>
+        <label class="consent"><input type="checkbox" id="setuju" required> Saya setuju dihubungi SisaRasa lewat WhatsApp terkait beta. Data tidak dibagikan ke pihak lain.</label>
+        <button class="btn btn-main" type="submit">Daftar beta</button>
+        <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 SisaRasa · Marketplace makanan surplus untuk mahasiswa</p>
+    <p>Proyek startup Lab Startup Digital, S1 Bisnis Digital FEB Universitas Diponegoro</p>
+  </div>
+</footer>
+
+<script>
+/* ===== Konfigurasi formulir lead (Google Form) ===== */
+const LEAD = {
+  action: "https://docs.google.com/forms/d/e/1FAIpQLSeG-lYqHpJa8uQSp2kMJDIUn4BgFkmw57bJUzNIytj3OvJ10w/formResponse",
+  fields: { nama: "entry.1420202387", wa: "entry.1357009124", peran: "entry.1918277721", area: "entry.1160364265" }
+};
+
+function track(name, params){ if (typeof gtag === "function") gtag("event", name, params || {}); }
+
+document.querySelectorAll("[data-cta]").forEach(a => a.addEventListener("click", () => {
+  track("cta_click", { cta_id: a.dataset.cta });
+  if (a.dataset.role) { const r = document.querySelector(`input[name=peran][value="${a.dataset.role}"]`); if (r) r.checked = true; }
+}));
+
+const form = document.getElementById("lead-form"), msg = document.getElementById("msg");
+let started = false;
+form.addEventListener("input", () => { if (!started) { started = true; track("form_start", { form_id: "beta_signup" }); } });
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  msg.className = "msg"; msg.textContent = "";
+  const d = Object.fromEntries(new FormData(form));
+  const wa = (d.wa || "").replace(/[^0-9+]/g, "");
+  if (!d.nama?.trim()) return fail("Isi nama kamu terlebih dulu.", "nama");
+  if (!/^(\+62|62|0)8[0-9]{7,12}$/.test(wa)) return fail("Nomor WhatsApp belum valid. Contoh: 081234567890.", "wa");
+  if (!d.area) return fail("Pilih kampus atau area kamu.", "area");
+  if (!document.getElementById("setuju").checked) return fail("Centang persetujuan dihubungi lewat WhatsApp.", "setuju");
+
+  const btn = form.querySelector("button"); btn.disabled = true; btn.textContent = "Mengirim…";
+  const body = new URLSearchParams();
+  body.append(LEAD.fields.nama, d.nama.trim());
+  body.append(LEAD.fields.wa, wa);
+  body.append(LEAD.fields.peran, d.peran);
+  body.append(LEAD.fields.area, d.area);
+  try {
+    await fetch(LEAD.action, { method: "POST", mode: "no-cors", body });
+    track("generate_lead", { form_id: "beta_signup", peran: d.peran, area: d.area });
+    document.getElementById("form-box").innerHTML =
+      '<div class="done" role="status"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#E3F2E9"/><circle cx="32" cy="32" r="22" fill="#1F8A5B"/><path d="m22 32 7 7 13-14" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+      '<h3>Kamu sudah terdaftar.</h3><p>Kami kabari lewat WhatsApp begitu beta SisaRasa dibuka di ' + d.area.replace(/[<>&]/g, "") + '.</p></div>';
+  } catch (err) {
+    btn.disabled = false; btn.textContent = "Daftar beta";
+    fail("Pendaftaran gagal terkirim. Periksa koneksi internet lalu tekan Daftar beta lagi.");
+  }
+});
+function fail(t, id){ msg.className = "msg err"; msg.textContent = t; if (id) document.getElementById(id).focus(); }
+</script>
+</body>
+</html>
